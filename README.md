@@ -1,14 +1,5 @@
 <!-- TODO: -->
-<!-- guest pages -->
 
-> > home
-> > rooms
-> > About
-> > Contact
-
-<!-- admin pages -->
-
-> > auth {login/register}
-> > dashboard
-> > rooms
-> > bookings
+-- bug on admin dashboard , to be able to get correct data of month/week
+-- Customer review
+-- room details

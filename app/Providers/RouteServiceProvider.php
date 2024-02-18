@@ -17,7 +17,16 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/home';
+    public const HOME = '/admin/dashboard';
+
+
+     /**
+     * The path to the "admin" home page.
+     *
+     * @var string
+     */
+    public const GUEST_HOME = '/user/dashboard';
+
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -36,5 +45,25 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+    }
+
+    /**
+     * Get the path the user should be redirected to after login.
+     *
+     * @return string
+     */
+    protected function redirectTo(): string
+    {
+         if (auth()->check()) {
+            // Check user role and redirect to the appropriate home page
+            if (auth()->user()->role == 'admin') {
+                return RouteServiceProvider::HOME;
+            } elseif (auth()->user()->role == 'guest') {
+                return RouteServiceProvider::GUEST_HOME;
+            }
+        }
+
+        // Default redirect path if user role is not recognized
+        return RouteServiceProvider::GUEST_HOME;
     }
 }
